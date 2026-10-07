@@ -1,0 +1,18 @@
+# LaTeX build files
+build/
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.run.xml
+
+# OS/editor files
+.DS_Store
+Thumbs.db
