@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Clean LaTeX build",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "${workspaceFolder}\\build\\*",
+                "-Recurse",
+                "-Force",
+                "-ErrorAction",
+                "SilentlyContinue"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": [
+                        "-NoProfile",
+                        "-Command"
+                    ]
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}
