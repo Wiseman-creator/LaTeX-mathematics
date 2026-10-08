@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{enumerate}
+\begin{document}
+
+% Bullets ---
+\begin{itemize}
+    \item pencil
+    \item calculator
+    \item ruler
+    \item notebook
+\end{itemize}
+% Numbered list ---
+\begin{enumerate}
+    \item pencil
+    \item calculator
+    \item ruler
+    \item notebook
+\end{enumerate}
+
+% Nested numbered list ---
+\begin{enumerate}
+    \item pencil
+    \item calculator
+    \item ruler
+    \item notebook
+        \begin{enumerate}[A.]
+            \item notes
+            \item homework
+            \item assesments
+                \begin{enumerate}
+                    \item Quiz
+                    \item tests
+                    \item journel entries
+                    
+                \end{enumerate}
+        \end{enumerate}
+        \item framework
+\end{enumerate}
+\begin{enumerate}\setcounter{enumi}{5}
+    \item pencil
+    \item calculator
+    \item pen
+    \item ruler
+    \item notebook
+    \item book
+    \item highlighter
+\end{enumerate}
+\pagebreak
+
+\begin{enumerate}
+    \item[a)] pencil % customize any way we can
+    \item[b] calculator
+    \item[] pen
+    \item[] ruler
+    \item[] notebook
+    \item[] book
+    \item[] highlighter
+\end{enumerate}
+
+\end{document}
