@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{color}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\begin{document}
+
+1. align --- Align multiple equations
+
+Use it for aligned equations, fractions, cases, matrices, and integrals with limits.
+
+\begin{align}
+    x^2 -1 = 0\\
+    x^3 - 1 = 0
+\end{align}
+
+2. gather --- centre multiple equations
+
+each equation centered independently rather than aligned at the equals sign.
+
+\begin{gather*}
+    a^2+b^2=c^2\\
+    x^2+y^2=z^2
+\end{gather*}
+
+3. equation --- a single numbered equation
+
+\begin{equation}
+a^2+b^2=c^2
+\end{equation}
+
+4. dfrac --- display style fractions
+
+\[
+\frac{1}{x+1}
+\qquad
+\dfrac{1}{x+1}
+\]
+
+5. text --- Ordinary words inside mathematics
+
+\[
+f(x)=
+\begin{cases}
+x^2 & \text{if } x\geq 0\\
+-x  & \text{if } x<0
+\end{cases}
+\]
+
+6. cases --- Piecewise functions
+
+\[
+f(x)= 
+\begin{cases}
+    x+1 & \text{if } x > 0\\
+    0 & \text{if } x = 0\\
+    x-1 & \text{if } x < 0
+\end{cases}
+\]
+
+7. tag --- Custom equation numbers
+
+\begin{equation*}
+E=mc^2 \tag{1.1}
+\end{equation*}
+
+8. innertext 
+
+\begin{align*}
+x^2-4 &= 0\\
+\intertext{Factorizing, we get}
+(x-2)(x+2) &= 0
+\end{align*}
+
+
+\pagebreak
+
+\[
+x \in \mathbb{R}, \qquad
+n \in \mathbb{N}, \qquad
+z \in \mathbb{C}
+\]
+
+\[
+A \subsetneq B, \qquad
+C \nsubseteq B, \qquad
+\varnothing \subseteq A, \qquad
+\emptyset \subseteq A
+\]
+
+For every real number \(x\), its square is non-negative.
+
+\[
+\forall x \in \mathbb{R} \, \quad x^2 \ge 0
+\]
+
+Conclusion
+
+\[
+\therefore \quad x^2 \geq 0
+\]
+
+\pagebreak
+
+\[
+\mathbb{R}, \qquad \mathfrak{g}
+\]
+
+$$ \mathbb{R} - \mathbb{Q}  $$
+
+Fraktur letters
+
+\[
+\mathfrak{g}, \qquad
+\mathfrak{G}, \qquad
+\mathfrak{A}
+\]
+
+calligraphic letters
+
+\[
+\mathcal{F} = \{f : X \to Y\}
+\]
+
+\pagebreak
+
+\begin{theorem}
+    The sum of two even integer is even.
+\end{theorem}
+
+
+\begin{proof}
+Let the two even integers be $2a$ and $2b$.
+
+Their sum is
+\[
+2a+2b=2(a+b).
+\]
+
+Since $a+b$ is an integer, the sum is even.
+\end{proof}
+
+Different mathematical environment
+
+\begin{lemma}
+    If n is even, then $n^2$ is even.
+\end{lemma}
+
+\begin{corollary}
+    If n is even, then $n^2+2$ is even.
+\end{corollary}
+
+\pagebreak
+
+\begin{algorithm}
+\caption{Find the Larger Number}
+\begin{algorithmic}[1]
+    \State Read $a$ and $b$
+    \If{$a > b$}
+        \State Print $a$
+    \Else
+        \State Print $b$
+    \EndIf
+\end{algorithmic}
+\end{algorithm}
+
+Example -
+
+\begin{algorithm}
+\caption{Sum of First $n$ Natural Numbers}
+\begin{algorithmic}[1]
+    \Require A positive integer $n$
+    \Ensure The sum $S$
+    \State $S \gets 0$
+    \For{$i \gets 1$ to $n$}
+        \State $S \gets S+i$
+    \EndFor
+    \Return $S$
+\end{algorithmic}
+\end{algorithm}
+
+\pagebreak
+
+This is a normal text.
+
+\textcolor{red}{This text is red.}
+
+\textcolor{blue}{Mathematics}
+
+\[
+\textcolor{red}{x^2+y^2=z^2}
+\]
+
+\end{document}
