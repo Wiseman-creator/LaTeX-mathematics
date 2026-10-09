@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{Error Handling}
+\author{unknown}
+
+\begin{document}
+\maketitle
+
+% $$\left( \frac{x}{2} - x ) = 0$$
+% Missing \right. inserted.
+% <inserted text>L
+
+$$\left( \frac{x}{2} - x \right) = 0$$
+
+% $$x = \frac{b^2-4ac){2a}$$
+%  the curly brace is replaced with first bracket
+
+$$ x = \frac{b^2-4ac}{2a}$$
+
+% $$t = \sqrt{\frac{x-z}{a}$$
+% Missing } inserted.	<inserted text>
+
+$$t = \sqrt{\frac{x-z}{a}}$$
+
+
+\begin{enumerate}
+\item First
+\item Second
+		\begin{enumerate}
+		\item Sub1
+		\item Sub2
+		\end{enumerate} % closing enumeration is misssig
+\item Third
+\end{enumerate}
+
+
+% $$\farc{3}{4}$$
+% This type of error often shows when either some specified package is not included
+% or there is some spelling mistake
+
+$$\frac{3}{4}$$
+
+
+% The discriminant of a quadratic is $b^2 - 4ac.  If that discriminant
+% is negative, then there are no real roots.
+% Missing $ inserted.	<inserted text>
+
+The discriminant of a quadratic is $b^2 - 4ac$.  If that discriminant
+is negative, then there are no real roots.
+
+
+% \begin{align*} % Environment align* undefined.
+% $x^2-1 &= 0$ \\
+% (x+1)(x-1) &=0
+
+% Environment align undefined
+% The align environment is provided by the amsmath package
+% \end{align*}
+
+\begin{align*}
+	x^2 - 1 &= 0 \\
+	(x+1)(x-1) &= 0
+\end{align*}
+
+\end{document}
