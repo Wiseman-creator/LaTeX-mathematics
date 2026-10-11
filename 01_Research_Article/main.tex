@@ -1,89 +1,89 @@
 \documentclass[12pt,a4paper]{article}
-
+ 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
-\usepackage{hyperref}
 \usepackage{cite}
-
+\usepackage{hyperref} % hyperref loaded last (was loaded before cite)
+ 
 \newtheorem{theorem}{Theorem}
-
-\title{The sum of first $n$ Natural Numbers}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+ 
+%title capitalisation ("The Sum of the First n Natural Numbers")
+\title{The Sum of the First $n$ Natural Numbers:\\ Two Proofs and an Arithmetic-Series Extension}
 \author{Shibam Mallick}
 \date{\today}
-
+ 
 \begin{document}
 \maketitle
-
+ 
+%abstract rewritten so every claim is actually delivered in the paper
+% (old abstract promised "sum of consecutive positive integers" and an
+% "arithmetic series connection" that were never proved).
 \begin{abstract}
-    This article studies the sum of the first \(n\) natural numbers and establishes a general formula for the sum of consecutive positive integers. The formula is proved using mathematical induction. Numerical examples and a triangular-arrangement application illustrate how the result simplifies calculations. The article also explains the connection between this sum and arithmetic series.
+    This article studies the sum of the first \(n\) natural numbers, \(1+2+\cdots+n=\frac{n(n+1)}{2}\), also known as the \(n\)-th triangular number. The formula is proved in two ways: by mathematical induction, which verifies it, and by a pairing argument, which explains why it holds. The result is then extended to arbitrary arithmetic series and to sums of consecutive integers \(a+(a+1)+\cdots+b\). Numerical examples and applications to triangular arrangements and handshake counting illustrate how the formula simplifies calculation.
 \end{abstract}
-
-\noindent\textbf{Keywords :}
-Natural Numbers, finite sums, arithmetic series, summation notation, mathematical induction.
-
+ 
+%removed stray space before the colon in "Keywords :"
+\noindent\textbf{Keywords:}
+natural numbers, finite sums, triangular numbers, arithmetic series, summation notation, mathematical induction.
+ 
 \section{Introduction}
-
-The addition of consecutive natural numbers is one of the fundamental problems in elementary mathematics. Consider the sum \[1 + 2 + 3 + \cdots + n,\] where $ n $ is a positive integer. For small values of $n$, this sum can be calculated by direct addition. However, when $n$ becomes very large, adding each term individually becomes inefficient.
-
-This motivates the search for a general formula that can calculate the sum directly. The sum of consecutive natural numbers forms an arithmetic series, in which each term differs from the preceding term by one.
-
-The objective of this article is to derive and prove a formula for the sum of the first $n$ natural numbers using mathematical induction. Several examples are also presented to demonstrate its usefulness.
-
+ 
+The addition of consecutive natural numbers is one of the fundamental problems in elementary mathematics. Consider the sum \[1 + 2 + 3 + \cdots + n,\] where $n$ is a positive integer. For small values of $n$, this sum can be calculated by direct addition. However, when $n$ becomes very large, adding each term individually becomes inefficient.
+ 
+This motivates the search for a general formula that gives the sum directly. The sum of consecutive natural numbers is an arithmetic series, in which each term differs from the preceding one by exactly one. The formula is traditionally attributed to Gauss, who is said to have found it as a schoolboy, and it appears as a standard example in textbooks on discrete mathematics and on the calculus of finite sums~\cite{rosen,graham}. %history/attribution and citations moved to the introduction (were only in the conclusion)
+ 
+The objective of this article is threefold: (i) to prove the formula for the sum of the first $n$ natural numbers by mathematical induction; (ii) to give a second, direct proof that explains \emph{where} the formula comes from; and (iii) to extend it to general arithmetic series. Several examples and applications demonstrate its usefulness.
+ 
 \section{Mathematical Preliminaries}
-
-Let $ \mathbb{N} = \{1,2,3, \ldots ,n\}  $ denote the set of natural numbers. For a positive integer $n$ , define \(S_n\) as the sum of the first $n$ natural numbers;
-
-$$ S_n = 1 + 2 + 3 + \cdots + n $$
-
-Using summation notation, this can be written as 
-
-$$ S_n = \sum_{k = 1}^n k  $$
-
-Here  the symbol \(\sum\) represents addition, the index $k$ takes the integer values from $ 1 \text{ to } n $, and $n$ denotes the number of terms in the sum.
-
+ 
+%N was wrongly defined as the finite set {1,2,...,n}; it is infinite.
+Let $\mathbb{N} = \{1,2,3,\ldots\}$ denote the set of natural numbers (so $0\notin\mathbb{N}$). For a positive integer $n$, define \(S_n\) as the sum of the first $n$ natural numbers:
+\[ S_n = 1 + 2 + 3 + \cdots + n. \] %$$...$$ replaced by \[...\] throughout
+Using summation notation, this can be written as
+\[ S_n = \sum_{k = 1}^n k. \]
+Here the symbol \(\sum\) represents addition, the index $k$ takes the integer values from $1$ to $n$, and $n$ is the number of terms. We also set $S_0=0$ (the empty sum). The numbers $S_n$ are called the \emph{triangular numbers}, for reasons made clear in Section~\ref{sec:applications}.
+ 
 Mathematical induction is a proof technique used to establish statements for all positive integers. It consists of verifying the statement for the initial value and then showing that its validity for an arbitrary positive integer $n$ implies its validity for $n+1$.
-
-\section{Theorem and Proof}
-
-\begin{theorem}
+ 
+\section{Theorem and Proofs}
+ 
+%theorem now has a label so it can be cross-referenced; the result is
+% boxed only once (it used to be boxed twice).
+\begin{theorem}\label{thm:sum}
     For every positive integer $n$, the sum of the first $n$ natural numbers is
-    \[\boxed{S_n = \frac{n(n+1)}{2}}\] 
+    \begin{equation}\label{eq:sum}
+        S_n = \frac{n(n+1)}{2}.
+    \end{equation}
 \end{theorem}
-
+ 
+\subsection{Proof by mathematical induction}
+ 
 \begin{proof}
-We prove the result by mathematical induction.
-
-\textbf{Step 1: Base Case}
-
-For \(n=1\), we have
-\[
-S_1=1.
-\]
-Using the proposed formula,
+We prove the result by mathematical induction on $n$.
+ 
+\paragraph{Step 1: Base case.} For \(n=1\), we have \(S_1=1\). Using the proposed formula,
 \[
 \frac{1(1+1)}{2}=1.
 \]
 Thus, the formula is true for \(n=1\).
-
-\textbf{Step 2: Inductive Hypothesis}
-
-Assume that the formula holds for some positive integer \(n\). That is,
+ 
+\paragraph{Step 2: Inductive hypothesis.} Assume that the formula holds for some positive integer \(n\). That is,
 \[
 S_n=\frac{n(n+1)}{2}.
 \]
-
-\textbf{Step 3: Inductive Step}
-
-We must show that the formula holds for \(n+1\). By the definition of the sum,
+ 
+\paragraph{Step 3: Inductive step.} We must show that the formula holds for \(n+1\). By the definition of the sum,
 \[
 S_{n+1}=S_n+(n+1).
 \]
-
 Using the inductive hypothesis, we obtain
 \[
 S_{n+1}=\frac{n(n+1)}{2}+(n+1).
 \]
-
 Taking the common denominator and simplifying,
 \[
 \begin{aligned}
@@ -92,77 +92,125 @@ S_{n+1}
 &=\frac{(n+1)(n+2)}{2}.
 \end{aligned}
 \]
-
-This is precisely the required formula with \(n\) replaced by \(n+1\).
-
-Therefore, by the principle of mathematical induction,
-\[
-\boxed{S_n=\frac{n(n+1)}{2}}
-\]
-for every positive integer \(n\).
+This is precisely the required formula with \(n\) replaced by \(n+1\). Therefore, by the principle of mathematical induction, \eqref{eq:sum} holds for every positive integer \(n\).
 \end{proof}
-    
+ 
+%added a second, constructive proof. Induction only *verifies* the
+% formula; this one shows where it comes from.
+\subsection{A direct proof by pairing}
+ 
+Induction confirms the formula but does not reveal how one would discover it. The following argument, usually attributed to Gauss, does.
+ 
+\begin{proof}[Second proof of Theorem~\ref{thm:sum}]
+Write the sum twice, once in increasing and once in decreasing order:
+\[
+\begin{aligned}
+S_n &= 1 + 2 + 3 + \cdots + (n-1) + n,\\
+S_n &= n + (n-1) + (n-2) + \cdots + 2 + 1.
+\end{aligned}
+\]
+Adding the two lines term by term, every column sums to $n+1$, and there are $n$ columns. Hence
+\[
+2S_n = n(n+1), \qquad\text{so}\qquad S_n=\frac{n(n+1)}{2}. \qedhere
+\]
+\end{proof}
+ 
+Geometrically, two copies of a triangular array of $S_n$ dots fit together into a rectangle of $n$ rows and $n+1$ columns, which contains $n(n+1)$ dots.
+ 
+\section{Extension to Arithmetic Series}\label{sec:arithmetic}
+ 
+%the old abstract promised this connection but the paper never proved it.
+An \emph{arithmetic progression} with first term $a$, common difference $d$ and $m$ terms is $a,\ a+d,\ \ldots,\ a+(m-1)d$. Theorem~\ref{thm:sum} is the case $a=d=1$.
+ 
+\begin{theorem}\label{thm:arith}
+The sum of the arithmetic progression above is
+\[
+A=\sum_{k=0}^{m-1}\bigl(a+kd\bigr)=\frac{m}{2}\bigl(2a+(m-1)d\bigr)=\frac{m}{2}\,(\text{first term}+\text{last term}).
+\]
+\end{theorem}
+ 
+\begin{proof}
+Using linearity of the sum and Theorem~\ref{thm:sum} (applied with $m-1$ in place of $n$, valid also for $m=1$ since $S_0=0$),
+\[
+A = ma + d\sum_{k=0}^{m-1}k = ma + d\,\frac{(m-1)m}{2} = \frac{m}{2}\bigl(2a+(m-1)d\bigr).
+\]
+The last term is $a+(m-1)d$, so the first and last terms sum to $2a+(m-1)d$. \qedhere
+\end{proof}
+ 
+\begin{corollary}\label{cor:range}
+For integers $1\le a\le b$,
+\[
+a+(a+1)+\cdots+b=\frac{(b-a+1)(a+b)}{2}=S_b-S_{a-1}.
+\]
+\end{corollary}
+ 
+\begin{proof}
+This is Theorem~\ref{thm:arith} with $d=1$ and $m=b-a+1$ terms. The second equality follows from \eqref{eq:sum}: $S_b-S_{a-1}=\frac{b(b+1)-(a-1)a}{2}=\frac{(b-a+1)(a+b)}{2}$.
+\end{proof}
+ 
 \section{Examples}
-
-\subsection{Example 1: Sum of the first 10 natural numbers}
-
-\vspace{1 mm}
-
-Taking (n=10), the formula gives
-
+ 
+\begin{example}[First 10 natural numbers]
+Taking $n=10$, the formula gives
 \[
-S_{10}=\frac{10(10+1)}{2}
-=\frac{110}{2}=55.
+S_{10}=\frac{10(10+1)}{2}=\frac{110}{2}=55.
 \]
-
-Hence,
-
+\end{example} % "(n=10)" / "(n=100)" were missing math mode and printed as literal parentheses
+ 
+\begin{example}[First 100 natural numbers]
+For $n=100$,
 \[
-1+2+\cdots+10=55.
+S_{100}=\frac{100\cdot 101}{2}=5050.
 \]
-
-\subsection{Example 2: Sum of the first 100 natural numbers}
-\vspace{1 mm}
-
-For (n=100),
-
+Thus the sum is obtained directly, without adding one hundred numbers individually.
+\end{example}
+ 
+\begin{example}[A range of consecutive integers]
+By Corollary~\ref{cor:range}, with $a=51$ and $b=100$,
 \[
-S_{100}=\frac{100(101)}{2}=5050.
+51+52+\cdots+100=\frac{50\cdot 151}{2}=3775,
 \]
-
-Thus, the sum can be calculated directly without adding one hundred numbers individually.
-
-\section{Application}
-
-\textbf{Counting objects in a triangular arrangement}
-
-Suppose objects are arranged in rows, with one object in the first row, two in the second row, three in the third row, and so on. If there are (n) rows, the total number of objects is
-
+which agrees with $S_{100}-S_{50}=5050-1275=3775$.
+\end{example}
+ 
+\section{Applications}\label{sec:applications}
+ 
+\subsection{Counting objects in a triangular arrangement}
+ 
+Suppose objects are arranged in rows, with one object in the first row, two in the second, three in the third, and so on. If there are $n$ rows, the total number of objects is
 \[
 1+2+3+\cdots+n=\frac{n(n+1)}{2}.
 \]
-
-For example, a triangular arrangement with ten rows contains
-
+% this example duplicated Example 1 (n=10 -> 55); changed to n=20.
+For example, a triangular arrangement with twenty rows contains $\frac{20\cdot 21}{2}=210$ objects.
+ 
+\subsection{Handshake counting}
+ 
+% added a genuinely different application in place of the repeated one.
+At a gathering of $n$ people, each pair shakes hands exactly once. Order the people $1,\ldots,n$; person $1$ shakes hands with $n-1$ others, person $2$ with $n-2$ further people, and so on, so the total is
 \[
-\frac{10(11)}{2}=55
+(n-1)+(n-2)+\cdots+1+0=S_{n-1}=\frac{(n-1)n}{2}=\binom{n}{2}.
 \]
-
-objects. This demonstrates how the formula can be used in a simple counting problem.
-
+For $n=12$ people this gives $\frac{11\cdot12}{2}=66$ handshakes.
+ 
+\begin{remark}
+Adding two consecutive triangular numbers gives a perfect square:
+\[
+S_n+S_{n-1}=\frac{n(n+1)}{2}+\frac{(n-1)n}{2}=\frac{n\cdot 2n}{2}=n^2.
+\]
+\end{remark}
+ 
 \section{Conclusion}
-
-This article has examined the sum of the first \(n\) natural numbers and established the formula
-
+ 
+This article has proved the formula
 \[
-S_n=\frac{n(n+1)}{2}.
+S_n=\frac{n(n+1)}{2}
 \]
-
-The result was proved using mathematical induction, beginning with the base case and then establishing the inductive step. Numerical examples and a triangular counting application illustrated the usefulness of the formula\cite{graham}.
-
-The study demonstrates how a simple pattern in the natural numbers can lead to a general result that applies to every positive integer. It also illustrates the importance of mathematical induction in proving statements that hold for infinitely many integer values \cite{rosen}.
-
+by mathematical induction and by Gauss's pairing argument, and has extended it to arbitrary arithmetic series and to sums of consecutive integers. Numerical examples and two counting applications illustrated its usefulness.
+ 
+The study shows how a simple pattern in the natural numbers leads to a general result valid for every positive integer, and it illustrates the role of induction in proving statements about infinitely many integers~\cite{rosen}. Further directions include the sums of squares and cubes, where the analogous closed forms are treated in~\cite{graham}. % citations now sit next to the claims they support
+ 
 \bibliographystyle{plain}
 \bibliography{references}
-
+ 
 \end{document}
