@@ -1,0 +1,168 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{cite}
+
+\newtheorem{theorem}{Theorem}
+
+\title{The sum of first $n$ Natural Numbers}
+\author{Shibam Mallick}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    This article studies the sum of the first \(n\) natural numbers and establishes a general formula for the sum of consecutive positive integers. The formula is proved using mathematical induction. Numerical examples and a triangular-arrangement application illustrate how the result simplifies calculations. The article also explains the connection between this sum and arithmetic series.
+\end{abstract}
+
+\noindent\textbf{Keywords :}
+Natural Numbers, finite sums, arithmetic series, summation notation, mathematical induction.
+
+\section{Introduction}
+
+The addition of consecutive natural numbers is one of the fundamental problems in elementary mathematics. Consider the sum \[1 + 2 + 3 + \cdots + n,\] where $ n $ is a positive integer. For small values of $n$, this sum can be calculated by direct addition. However, when $n$ becomes very large, adding each term individually becomes inefficient.
+
+This motivates the search for a general formula that can calculate the sum directly. The sum of consecutive natural numbers forms an arithmetic series, in which each term differs from the preceding term by one.
+
+The objective of this article is to derive and prove a formula for the sum of the first $n$ natural numbers using mathematical induction. Several examples are also presented to demonstrate its usefulness.
+
+\section{Mathematical Preliminaries}
+
+Let $ \mathbb{N} = \{1,2,3, \ldots ,n\}  $ denote the set of natural numbers. For a positive integer $n$ , define \(S_n\) as the sum of the first $n$ natural numbers;
+
+$$ S_n = 1 + 2 + 3 + \cdots + n $$
+
+Using summation notation, this can be written as 
+
+$$ S_n = \sum_{k = 1}^n k  $$
+
+Here  the symbol \(\sum\) represents addition, the index $k$ takes the integer values from $ 1 \text{ to } n $, and $n$ denotes the number of terms in the sum.
+
+Mathematical induction is a proof technique used to establish statements for all positive integers. It consists of verifying the statement for the initial value and then showing that its validity for an arbitrary positive integer $n$ implies its validity for $n+1$.
+
+\section{Theorem and Proof}
+
+\begin{theorem}
+    For every positive integer $n$, the sum of the first $n$ natural numbers is
+    \[\boxed{S_n = \frac{n(n+1)}{2}}\] 
+\end{theorem}
+
+\begin{proof}
+We prove the result by mathematical induction.
+
+\textbf{Step 1: Base Case}
+
+For \(n=1\), we have
+\[
+S_1=1.
+\]
+Using the proposed formula,
+\[
+\frac{1(1+1)}{2}=1.
+\]
+Thus, the formula is true for \(n=1\).
+
+\textbf{Step 2: Inductive Hypothesis}
+
+Assume that the formula holds for some positive integer \(n\). That is,
+\[
+S_n=\frac{n(n+1)}{2}.
+\]
+
+\textbf{Step 3: Inductive Step}
+
+We must show that the formula holds for \(n+1\). By the definition of the sum,
+\[
+S_{n+1}=S_n+(n+1).
+\]
+
+Using the inductive hypothesis, we obtain
+\[
+S_{n+1}=\frac{n(n+1)}{2}+(n+1).
+\]
+
+Taking the common denominator and simplifying,
+\[
+\begin{aligned}
+S_{n+1}
+&=\frac{n(n+1)+2(n+1)}{2}\\
+&=\frac{(n+1)(n+2)}{2}.
+\end{aligned}
+\]
+
+This is precisely the required formula with \(n\) replaced by \(n+1\).
+
+Therefore, by the principle of mathematical induction,
+\[
+\boxed{S_n=\frac{n(n+1)}{2}}
+\]
+for every positive integer \(n\).
+\end{proof}
+    
+\section{Examples}
+
+\subsection{Example 1: Sum of the first 10 natural numbers}
+
+\vspace{1 mm}
+
+Taking (n=10), the formula gives
+
+\[
+S_{10}=\frac{10(10+1)}{2}
+=\frac{110}{2}=55.
+\]
+
+Hence,
+
+\[
+1+2+\cdots+10=55.
+\]
+
+\subsection{Example 2: Sum of the first 100 natural numbers}
+\vspace{1 mm}
+
+For (n=100),
+
+\[
+S_{100}=\frac{100(101)}{2}=5050.
+\]
+
+Thus, the sum can be calculated directly without adding one hundred numbers individually.
+
+\section{Application}
+
+\textbf{Counting objects in a triangular arrangement}
+
+Suppose objects are arranged in rows, with one object in the first row, two in the second row, three in the third row, and so on. If there are (n) rows, the total number of objects is
+
+\[
+1+2+3+\cdots+n=\frac{n(n+1)}{2}.
+\]
+
+For example, a triangular arrangement with ten rows contains
+
+\[
+\frac{10(11)}{2}=55
+\]
+
+objects. This demonstrates how the formula can be used in a simple counting problem.
+
+\section{Conclusion}
+
+This article has examined the sum of the first \(n\) natural numbers and established the formula
+
+\[
+S_n=\frac{n(n+1)}{2}.
+\]
+
+The result was proved using mathematical induction, beginning with the base case and then establishing the inductive step. Numerical examples and a triangular counting application illustrated the usefulness of the formula\cite{graham}.
+
+The study demonstrates how a simple pattern in the natural numbers can lead to a general result that applies to every positive integer. It also illustrates the importance of mathematical induction in proving statements that hold for infinitely many integer values \cite{rosen}.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
