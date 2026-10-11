@@ -1,0 +1,378 @@
+\documentclass[11pt,a4paper]{book}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[nottoc]{tocbibind}   % list the References in the table of contents
+\usepackage{hyperref}            % loaded last
+
+\renewcommand{\bibname}{References}
+
+% ---------- shortcuts ----------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\abs}[1]{\left|#1\right|}
+
+% ---------- numbering ----------
+\numberwithin{equation}{section}          % equations: (1.2.3)
+
+% ---------- theorem-like environments ----------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]    % Theorem 1.2.3
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{axiom}[theorem]{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[chapter]  % Exercise 1.4
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\frontmatter
+\title{Introduction to Mathematical Analysis}
+\author{Shibam Mallick}
+\date{\today}
+\maketitle
+
+\chapter*{Preface}
+This text develops the foundations of calculus from the properties of the real numbers. Chapter~1, reproduced here, introduces the three ideas on which everything else rests: the completeness of $\R$, the limit of a sequence, and the continuity of a function. Each section states precise definitions, illustrates them with examples, and proves the main theorems in full. A set of exercises at the end of the chapter gives practice with every technique used.
+
+\tableofcontents
+
+\mainmatter
+
+% =====================================================================
+\chapter{Introduction to Real Analysis}\label{ch:real-analysis}
+% =====================================================================
+
+Calculus, as usually first met, is a collection of computational rules. Real analysis explains why those rules are correct. Its starting point is the observation that the rational numbers $\Q$, although they form an ordered field, have ``gaps'': there is no rational number whose square is $2$. The real numbers $\R$ fill these gaps, and this single fact, made precise in Section~\ref{sec:real-numbers}, is what makes limits, continuous functions and the whole of calculus work.
+
+This chapter has three parts. Section~\ref{sec:real-numbers} introduces suprema and the completeness of $\R$. Section~\ref{sec:sequences} defines the limit of a sequence and develops its basic properties. Section~\ref{sec:continuity} defines continuity and proves the Intermediate Value Theorem. Throughout, $\N=\{1,2,3,\ldots\}$. The approach is the standard one found in many textbooks~\cite{rudin,abbott,bartle,apostol}, to which the reader is referred for further reading.
+
+% ---------------------------------------------------------------------
+\section{The Real Numbers}\label{sec:real-numbers}
+% ---------------------------------------------------------------------
+
+We take for granted that $\R$ is an ordered field, so the usual rules of arithmetic and inequalities hold. What distinguishes $\R$ from $\Q$ is the completeness property, which we now formulate.
+
+\begin{definition}[Upper bound and supremum]\label{def:sup}
+Let $S\subseteq\R$ be nonempty. A number $u\in\R$ is an \emph{upper bound} of $S$ if
+\begin{equation}\label{eq:upper-bound}
+    s\le u\qquad\text{for every } s\in S.
+\end{equation}
+If $S$ has an upper bound it is \emph{bounded above}. A number $u$ is the \emph{supremum} (least upper bound) of $S$, written $u=\sup S$, if $u$ is an upper bound of $S$ and $u\le v$ for every upper bound $v$ of $S$.
+\end{definition}
+
+\begin{axiom}[Completeness]\label{ax:completeness}
+Every nonempty subset of $\R$ that is bounded above has a supremum in $\R$.
+\end{axiom}
+
+The following characterisation of the supremum is used constantly.
+
+\begin{lemma}[$\varepsilon$-characterisation of the supremum]\label{lem:sup-eps}
+Let $S\subseteq\R$ be nonempty and let $u$ be an upper bound of $S$. Then $u=\sup S$ if and only if
+\begin{equation}\label{eq:sup-eps}
+    \text{for every } \varepsilon>0 \text{ there exists } s\in S \text{ with } s>u-\varepsilon.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+($\Rightarrow$) Let $u=\sup S$ and $\varepsilon>0$. Since $u-\varepsilon<u$ and $u$ is the \emph{least} upper bound, $u-\varepsilon$ is not an upper bound of $S$. Hence some $s\in S$ satisfies $s>u-\varepsilon$.
+
+($\Leftarrow$) Suppose \eqref{eq:sup-eps} holds but $u\ne\sup S$. Then there is an upper bound $v$ of $S$ with $v<u$. Put $\varepsilon=u-v>0$. By \eqref{eq:sup-eps} some $s\in S$ has $s>u-\varepsilon=v$, contradicting that $v$ is an upper bound.
+\end{proof}
+
+\begin{example}[Supremum of an open interval]\label{ex:sup-interval}
+Let $S=(0,1)$. We show $\sup S=1$. Clearly $1$ is an upper bound. Given $\varepsilon>0$, put $s=1-\tfrac12\min\{\varepsilon,1\}$. Then $\tfrac12\le s<1$, so $s\in S$, and $s\ge 1-\varepsilon/2>1-\varepsilon$. By Lemma~\ref{lem:sup-eps}, $\sup S=1$. Note that $1\notin S$, so a supremum need not be a maximum.
+\end{example}
+
+\begin{theorem}[Archimedean property]\label{thm:archimedean}
+For every $x\in\R$ there exists $n\in\N$ with $n>x$.
+\end{theorem}
+
+\begin{proof}
+Suppose not. Then $x$ is an upper bound of $\N$, so by Axiom~\ref{ax:completeness} the number $u=\sup\N$ exists. Since $u-1<u$, the number $u-1$ is not an upper bound of $\N$, so there is $n\in\N$ with $n>u-1$. Then $n+1>u$ with $n+1\in\N$, contradicting that $u$ is an upper bound of $\N$.
+\end{proof}
+
+\begin{corollary}\label{cor:one-over-n}
+For every $\varepsilon>0$ there exists $n\in\N$ with $0<\dfrac1n<\varepsilon$.
+\end{corollary}
+
+\begin{proof}
+Apply Theorem~\ref{thm:archimedean} with $x=1/\varepsilon$ to get $n>1/\varepsilon$; then $1/n<\varepsilon$.
+\end{proof}
+
+\begin{example}[$\sqrt2$ is irrational]\label{ex:sqrt2}
+Suppose $\sqrt2=p/q$ with $p,q\in\N$ having no common factor. Then
+\begin{equation}\label{eq:sqrt2}
+    p^2=2q^2 .
+\end{equation}
+So $p^2$ is even, hence $p$ is even (the square of an odd number is odd). Write $p=2k$. Then \eqref{eq:sqrt2} gives $q^2=2k^2$, so $q$ is also even, contradicting that $p$ and $q$ have no common factor. Hence $\sqrt2\notin\Q$.
+\end{example}
+
+\begin{remark}
+Example~\ref{ex:sqrt2} shows why completeness fails in $\Q$: the set $\{q\in\Q: q>0,\ q^2<2\}$ is bounded above in $\Q$ but has no least upper bound \emph{in} $\Q$. In $\R$ its supremum exists by Axiom~\ref{ax:completeness}; Exercise~\ref{ex:sqrt2-exists} shows by another route that a positive real number with square $2$ exists.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\section{Sequences and Limits}\label{sec:sequences}
+% ---------------------------------------------------------------------
+
+\begin{definition}[Convergent sequence]\label{def:limit}
+A \emph{sequence} is a function $\N\to\R$, written $(a_n)$. The sequence $(a_n)$ \emph{converges} to $L\in\R$, written $a_n\to L$ or $\lim_{n\to\infty}a_n=L$, if
+\begin{equation}\label{eq:limit}
+    \forall\,\varepsilon>0\ \ \exists\,N\in\N\ \ \forall\,n\ge N:\qquad \abs{a_n-L}<\varepsilon .
+\end{equation}
+A sequence that does not converge \emph{diverges}.
+\end{definition}
+
+\begin{example}\label{ex:one-over-n}
+$\dfrac1n\to0$. Given $\varepsilon>0$, Corollary~\ref{cor:one-over-n} gives $N$ with $1/N<\varepsilon$. For $n\ge N$, $\abs{1/n-0}=1/n\le 1/N<\varepsilon$.
+\end{example}
+
+\begin{example}\label{ex:rational-seq}
+Let $a_n=\dfrac{2n+1}{n+3}$. We show $a_n\to2$. Compute
+\begin{equation}\label{eq:rational-seq}
+    \abs{a_n-2}=\abs{\frac{2n+1-2(n+3)}{n+3}}=\frac{5}{n+3}<\frac5n .
+\end{equation}
+Given $\varepsilon>0$ choose, by Theorem~\ref{thm:archimedean}, $N\in\N$ with $N>5/\varepsilon$. For $n\ge N$, \eqref{eq:rational-seq} gives $\abs{a_n-2}<5/n\le5/N<\varepsilon$.
+\end{example}
+
+\begin{theorem}[Uniqueness of limits]\label{thm:unique}
+If $a_n\to L$ and $a_n\to M$, then $L=M$.
+\end{theorem}
+
+\begin{proof}
+Let $\varepsilon>0$. Choose $N_1,N_2$ such that $\abs{a_n-L}<\varepsilon/2$ for $n\ge N_1$ and $\abs{a_n-M}<\varepsilon/2$ for $n\ge N_2$. For $n=\max\{N_1,N_2\}$, the triangle inequality gives
+\[
+    \abs{L-M}\le\abs{L-a_n}+\abs{a_n-M}<\varepsilon .
+\]
+Since $\varepsilon>0$ was arbitrary, $\abs{L-M}=0$, i.e.\ $L=M$.
+\end{proof}
+
+\begin{theorem}[Convergent sequences are bounded]\label{thm:bounded}
+If $(a_n)$ converges, there is $M>0$ with $\abs{a_n}\le M$ for all $n$.
+\end{theorem}
+
+\begin{proof}
+Let $a_n\to L$. Taking $\varepsilon=1$ in \eqref{eq:limit}, there is $N$ with $\abs{a_n-L}<1$, hence $\abs{a_n}<\abs L+1$, for all $n\ge N$. Put
+\[
+    M=\max\{\abs{a_1},\ldots,\abs{a_{N-1}},\ \abs L+1\}.
+\]
+Then $\abs{a_n}\le M$ for every $n$.
+\end{proof}
+
+\begin{lemma}[Limits preserve weak inequalities]\label{lem:preserve}
+Let $a_n\to L$. If $a_n\le0$ for all $n$, then $L\le0$. If $a_n\ge0$ for all $n$, then $L\ge0$.
+\end{lemma}
+
+\begin{proof}
+Suppose $a_n\le0$ for all $n$ but $L>0$. Take $\varepsilon=L$: there is $N$ with $\abs{a_N-L}<L$, so $a_N>0$, a contradiction. The second statement is proved the same way (if $L<0$, take $\varepsilon=-L$ to get some $a_N<0$).
+\end{proof}
+
+\begin{theorem}[Algebra of limits]\label{thm:algebra}
+If $a_n\to a$ and $b_n\to b$, then
+\begin{equation}\label{eq:algebra}
+    a_n+b_n\to a+b
+    \qquad\text{and}\qquad
+    a_nb_n\to ab .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+\emph{Sum.} Given $\varepsilon>0$ choose $N$ so that $\abs{a_n-a}<\varepsilon/2$ and $\abs{b_n-b}<\varepsilon/2$ for $n\ge N$. Then $\abs{(a_n+b_n)-(a+b)}<\varepsilon$.
+
+\emph{Product.} By Theorem~\ref{thm:bounded} there is $M>0$ with $\abs{a_n}\le M$ for all $n$. Put $K=M+\abs b+1>0$. For every $n$,
+\begin{equation}\label{eq:product-split}
+    \abs{a_nb_n-ab}
+    =\abs{a_n(b_n-b)+b(a_n-a)}
+    \le M\abs{b_n-b}+\abs b\,\abs{a_n-a}.
+\end{equation}
+Given $\varepsilon>0$ choose $N$ so that $\abs{a_n-a}<\varepsilon/(2K)$ and $\abs{b_n-b}<\varepsilon/(2K)$ for $n\ge N$. Since $M\le K$ and $\abs b\le K$, \eqref{eq:product-split} gives $\abs{a_nb_n-ab}<\varepsilon/2+\varepsilon/2=\varepsilon$.
+\end{proof}
+
+A sequence is \emph{increasing} if $a_n\le a_{n+1}$ for all $n$.
+
+\begin{theorem}[Monotone Convergence Theorem]\label{thm:mct}
+An increasing sequence that is bounded above converges, and its limit is $\sup\{a_n:n\in\N\}$.
+\end{theorem}
+
+\begin{proof}
+The set $\{a_n\}$ is nonempty and bounded above, so $u=\sup\{a_n\}$ exists by Axiom~\ref{ax:completeness}. Let $\varepsilon>0$. By Lemma~\ref{lem:sup-eps} there is $N$ with $a_N>u-\varepsilon$. For $n\ge N$, monotonicity and the fact that $u$ is an upper bound give
+\[
+    u-\varepsilon<a_N\le a_n\le u,
+\]
+so $\abs{a_n-u}<\varepsilon$. Thus $a_n\to u$.
+\end{proof}
+
+\begin{example}[A recursively defined sequence]\label{ex:recursive}
+Let $a_1=1$ and $a_{n+1}=\sqrt{2+a_n}$. We show $a_n\to2$.
+
+\emph{Bounded:} $0<a_n<2$ for all $n$. This holds for $n=1$, and if $0<a_n<2$ then $0<a_{n+1}<\sqrt{2+2}=2$.
+
+\emph{Increasing:} since $a_{n+1}>0$, we have $a_{n+1}>a_n$ if and only if $2+a_n>a_n^2$, i.e.
+\begin{equation}\label{eq:recursive-ineq}
+    (a_n-2)(a_n+1)<0,
+\end{equation}
+which is true because $0<a_n<2$.
+
+By Theorem~\ref{thm:mct}, $a_n\to L$ for some $L$, and $L\ge a_1=1$ by Lemma~\ref{lem:preserve}. Squaring the recursion gives $a_{n+1}^2=2+a_n$. Letting $n\to\infty$ and using Theorem~\ref{thm:algebra} (and $a_{n+1}\to L$) we get $L^2=2+L$, i.e. $(L-2)(L+1)=0$. Since $L\ge1$, $L=2$.
+\end{example}
+
+\begin{remark}
+The Monotone Convergence Theorem is really a restatement of completeness: it fails in $\Q$, where an increasing bounded sequence of rationals can approach $\sqrt2$ without having a rational limit.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\section{Continuity}\label{sec:continuity}
+% ---------------------------------------------------------------------
+
+Let $D\subseteq\R$ and $f:D\to\R$.
+
+\begin{definition}[Continuity]\label{def:continuity}
+The function $f$ is \emph{continuous at} $c\in D$ if
+\begin{equation}\label{eq:continuity}
+    \forall\,\varepsilon>0\ \ \exists\,\delta>0\ \ \forall\,x\in D:\qquad
+    \abs{x-c}<\delta\ \Longrightarrow\ \abs{f(x)-f(c)}<\varepsilon .
+\end{equation}
+It is \emph{continuous} if it is continuous at every point of $D$.
+\end{definition}
+
+\begin{example}\label{ex:square}
+$f(x)=x^2$ is continuous at every $c\in\R$. Indeed,
+\begin{equation}\label{eq:square}
+    \abs{x^2-c^2}=\abs{x-c}\,\abs{x+c}.
+\end{equation}
+If $\abs{x-c}<1$ then $\abs{x+c}\le\abs{x-c}+2\abs c<2\abs c+1$. Given $\varepsilon>0$ let $\delta=\min\{1,\ \varepsilon/(2\abs c+1)\}$. If $\abs{x-c}<\delta$, then by \eqref{eq:square}
+\[
+    \abs{x^2-c^2}<\frac{\varepsilon}{2\abs c+1}\,(2\abs c+1)=\varepsilon .
+\]
+\end{example}
+
+The next theorem connects continuity with the limits of Section~\ref{sec:sequences}.
+
+\begin{theorem}[Sequential criterion]\label{thm:sequential}
+Let $f:D\to\R$ and $c\in D$. Then $f$ is continuous at $c$ if and only if
+\begin{equation}\label{eq:sequential}
+    x_n\in D,\ x_n\to c\quad\Longrightarrow\quad f(x_n)\to f(c).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+($\Rightarrow$) Let $x_n\to c$ with $x_n\in D$ and let $\varepsilon>0$. Take $\delta$ from \eqref{eq:continuity}, then $N$ with $\abs{x_n-c}<\delta$ for $n\ge N$. For these $n$, $\abs{f(x_n)-f(c)}<\varepsilon$.
+
+($\Leftarrow$) We prove the contrapositive. Suppose $f$ is not continuous at $c$. Then there is $\varepsilon_0>0$ such that for every $\delta>0$ some $x\in D$ has $\abs{x-c}<\delta$ but $\abs{f(x)-f(c)}\ge\varepsilon_0$. Taking $\delta=1/n$ gives $x_n\in D$ with $\abs{x_n-c}<1/n$ and $\abs{f(x_n)-f(c)}\ge\varepsilon_0$. Then $x_n\to c$ (as in Example~\ref{ex:one-over-n}) but $f(x_n)\not\to f(c)$, so \eqref{eq:sequential} fails.
+\end{proof}
+
+\begin{corollary}\label{cor:sum-product}
+If $f,g:D\to\R$ are continuous at $c$, then so are $f+g$ and $fg$.
+\end{corollary}
+
+\begin{proof}
+Let $x_n\to c$ in $D$. By Theorem~\ref{thm:sequential}, $f(x_n)\to f(c)$ and $g(x_n)\to g(c)$. By Theorem~\ref{thm:algebra}, $(f+g)(x_n)\to(f+g)(c)$ and $(fg)(x_n)\to(fg)(c)$. Apply Theorem~\ref{thm:sequential} again.
+\end{proof}
+
+We finish with the first deep theorem about continuous functions. Its proof uses completeness in an essential way.
+
+\begin{theorem}[Intermediate Value Theorem]\label{thm:ivt}
+Let $f:[a,b]\to\R$ be continuous with $f(a)<0<f(b)$. Then there exists $c\in(a,b)$ with $f(c)=0$.
+\end{theorem}
+
+\begin{proof}
+Let $S=\{x\in[a,b]: f(x)<0\}$. Then $a\in S$ and $S$ is bounded above by $b$, so $c=\sup S$ exists and $a\le c\le b$.
+
+\emph{Claim 1: $f(c)\le0$.} By Lemma~\ref{lem:sup-eps}, for each $n$ there is $s_n\in S$ with $c-1/n<s_n\le c$. Then $s_n\to c$ and $f(s_n)<0$. By Theorem~\ref{thm:sequential}, $f(s_n)\to f(c)$, so $f(c)\le0$ by Lemma~\ref{lem:preserve}.
+
+In particular $f(c)\le0<f(b)$ forces $c\ne b$, so $c<b$.
+
+\emph{Claim 2: $f(c)\ge0$.} Put $t_n=c+(b-c)/n$. Then $c<t_n\le b$, so $t_n\in[a,b]$, and $t_n>\sup S$ gives $t_n\notin S$; hence $f(t_n)\ge0$. Also $t_n\to c$, so $f(t_n)\to f(c)$ and Lemma~\ref{lem:preserve} gives $f(c)\ge0$.
+
+Thus $f(c)=0$. Since $f(a)<0$ and $f(b)>0$, $c\ne a$ and $c\ne b$, so $c\in(a,b)$.
+\end{proof}
+
+% ---------------------------------------------------------------------
+\section{Chapter Summary}\label{sec:summary}
+% ---------------------------------------------------------------------
+
+\begin{itemize}
+    \item $\R$ is an ordered field with the \emph{completeness} property: every nonempty set bounded above has a supremum (Axiom~\ref{ax:completeness}). Consequences: the Archimedean property and the Monotone Convergence Theorem.
+    \item A sequence converges to $L$ if, for every $\varepsilon>0$, its terms are eventually within $\varepsilon$ of $L$ \eqref{eq:limit}. Limits are unique, convergent sequences are bounded, and limits respect sums and products.
+    \item A function is continuous at $c$ if small changes in $x$ near $c$ produce small changes in $f(x)$ \eqref{eq:continuity}; equivalently, it preserves convergent sequences \eqref{eq:sequential}.
+    \item The Intermediate Value Theorem links all three ideas: it is proved from the supremum axiom using sequences and continuity.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+\section{Exercises}\label{sec:exercises}
+% ---------------------------------------------------------------------
+
+\subsection*{Real numbers}
+
+\begin{exercise}
+Show that $\sup\{1-\tfrac1n:n\in\N\}=1$ and that this set has no maximum. \emph{Hint:} use Lemma~\ref{lem:sup-eps} and Corollary~\ref{cor:one-over-n}.
+\end{exercise}
+
+\begin{exercise}
+Let $S\subseteq\R$ be nonempty and bounded above, and let $c>0$. Prove that $cS=\{cs:s\in S\}$ is bounded above and $\sup(cS)=c\sup S$.
+\end{exercise}
+
+\begin{exercise}\label{ex:density}
+Prove that between any two real numbers $a<b$ there is a rational number. \emph{Hint:} choose $n$ with $1/n<b-a$ and let $m$ be the least integer with $m/n>a$.
+\end{exercise}
+
+\subsection*{Sequences}
+
+\begin{exercise}
+Prove directly from \eqref{eq:limit} that $\dfrac{n}{n+1}\to1$.
+\end{exercise}
+
+\begin{exercise}
+Prove that the sequence $a_n=(-1)^n$ diverges. \emph{Hint:} if $a_n\to L$, take $\varepsilon=\tfrac12$ and compare two consecutive terms.
+\end{exercise}
+
+\begin{exercise}[Squeeze theorem]
+Suppose $a_n\le b_n\le c_n$ for all $n$ and $a_n\to L$, $c_n\to L$. Prove that $b_n\to L$.
+\end{exercise}
+
+\begin{exercise}
+Prove that if $a_n\to a$ then $\abs{a_n}\to\abs a$. \emph{Hint:} $\bigl|\,\abs x-\abs y\,\bigr|\le\abs{x-y}$.
+\end{exercise}
+
+\begin{exercise}
+Let $a_1=1$ and $a_{n+1}=\tfrac12a_n+1$. Show that $(a_n)$ is increasing and bounded above by $2$, and find its limit.
+\end{exercise}
+
+\subsection*{Continuity}
+
+\begin{exercise}
+Prove that $f(x)=\abs x$ is continuous at every point of $\R$.
+\end{exercise}
+
+\begin{exercise}
+Prove that every polynomial is continuous on $\R$. \emph{Hint:} Corollary~\ref{cor:sum-product}, the continuity of constant functions and of $f(x)=x$, and induction on the degree.
+\end{exercise}
+
+\begin{exercise}
+Show that $f(x)=1/x$ is continuous at every $c>0$ as a function on $(0,\infty)$. \emph{Hint:} if $\abs{x-c}<c/2$ then $x>c/2$, so $\abs{1/x-1/c}<2\abs{x-c}/c^2$.
+\end{exercise}
+
+\begin{exercise}\label{ex:sqrt2-exists}
+Apply Theorem~\ref{thm:ivt} to $g(x)=x^2-2$ on $[1,2]$ to prove that there is a real number $c\in(1,2)$ with $c^2=2$.
+\end{exercise}
+
+\begin{exercise}
+Show that $x^3+x-1=0$ has a solution in $(0,1)$.
+\end{exercise}
+
+% =====================================================================
+\backmatter
+% =====================================================================
+\bibliographystyle{plain}
+\bibliography{references_ra}
+
+\end{document}
