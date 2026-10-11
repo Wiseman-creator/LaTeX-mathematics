@@ -1,0 +1,106 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=1 in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{hyperref}
+
+\title{Derivation of the Maclaurin Series for $e^x$}
+\author{Shibam Mallick}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+     We derive the Maclaurin series of the exponential function, $e^x=\displaystyle{\sum_{n=0}^{\infty}\frac{x^n}{n!}}$, by computing the successive derivatives of $e^x$ at the origin. We then prove, using Taylor's theorem with the Lagrange form of the remainder, that the series converges to $e^x$ for every real number $x$.
+\end{abstract}
+
+\noindent\textbf{Keywords:}
+Maclaurin series, Taylor series, exponential function, convergence, remainder term.
+
+\section{Introduction}
+
+A smooth function can often be approximated near a point by a polynomial whose derivatives match those of the function at that point. If $f$ has derivatives of all orders at a point $a$, its \emph{Taylor series} about $a$ is the power series built from those derivatives. When the point is $a=0$, the series is called the \emph{Maclaurin series} of $f$.
+ 
+Two questions arise for any such series: what are its coefficients, and does it actually converge to $f(x)$? A power series built from the derivatives of $f$ may converge to a different function, or not converge at all, so the second question is not automatic~\cite{apostol,rudin}. For $f(x)=e^x$ the answer to both questions is particularly clean: all coefficients are explicit, and the series converges to $e^x$ for every real $x$.
+
+\section{Derivation}
+
+For all $n \in \mathbb{N}$, $f^n(x) = e^x$ for all $x \in \mathbb{R}$\\
+By Taylor's theorem with Lagrange's form of remainder after n terms, for a non-zero $x \in \mathbb{R}$
+\begin{align}
+    f(x) = f(0) + xf'(0) + \frac{x^2}{2}f''(0) + \cdots + \frac{x^{n-1}}{(n-1)}f^{n-1}(0) + R_n(x) 
+\end{align}
+where $R_n(x) = \frac{x^n}{n!}f^n(\theta x)$ for some real number $\theta$ satisfying $0 <\theta <1 $ 
+
+Since for all \(n \in \mathbb{N}\), \(f^{n}(x)\) exists, for all
+\(x \in \mathbb{R}\), the right-hand polynomial in (1) takes the form of
+an infinite series as \(n \to \infty\).
+The infinite series converge to \(f(x)\) for those non-zero real
+values of \(x\) for which $\displaystyle\lim_{n \to \infty} R_n(x) = 0.$
+
+$ \therefore R_n = \frac{x^n}{n!}e^{\left(\theta x\right)}. $
+
+
+Let
+\[
+u_n = \frac{|x|^n}{n!}, \qquad x \neq 0.
+\]
+
+Then,
+\begin{align*}
+\lim_{n \to \infty} \frac{u_{n+1}}{u_n}
+&= \lim_{n \to \infty}
+\frac{|x|^{n+1}}{(n+1)!}
+\cdot \frac{n!}{|x|^n} \\[6pt]
+&= \lim_{n \to \infty} \frac{|x|}{n+1} \\[6pt]
+&= 0.
+\end{align*}
+
+Hence,
+\[
+\lim_{n \to \infty} u_n = 0.
+\]
+
+For all \(x \in \mathbb{R}\), \(e^{\theta x}\) is bounded, where \(0 < \theta < 1\). Hence,
+\[
+\lim_{n \to \infty} |R_n(x)| = 0
+\]
+for all \(x \in \mathbb{R}\), \(x \neq 0\). This implies that
+\[
+\lim_{n \to \infty} R_n(x) = 0
+\]
+for all \(x \in \mathbb{R}\), \(x \neq 0\).
+
+Consequently, the infinite series $1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!} + \cdots $ converges to \(e^x\) for all real \(x \neq 0\).
+
+At \(x = 0\), the convergence holds trivially.
+So $ e^x = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!} + \cdots $ for all $x \in \mathbb{R}$
+
+\section{Conclusion}
+
+We have derived the Maclaurin series for the exponential function
+using Taylor's theorem with the Lagrange form of the remainder.
+The ratio test establishes that $|x|^n/n!\to 0$, and the bound on
+the remainder shows that $R_n(x)\to 0$ for every fixed real
+number $x$. Thus, the Maclaurin series converges to $e^x$ for all
+real $x$.
+
+\begin{thebibliography}{9}
+
+\bibitem{apostol}
+T. M. Apostol,
+\emph{Calculus, Volume I: One-Variable Calculus, with an
+Introduction to Linear Algebra},
+2nd ed., Wiley, 1967.
+
+\bibitem{rudin}
+W. Rudin,
+\emph{Principles of Mathematical Analysis},
+3rd ed., McGraw-Hill, 1976.
+
+\end{thebibliography}
+
+
+\end{document}
